@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSMU IntelliCampus - AI-Powered Virtual Learning Hub</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80') center/cover;
+            height: 80vh;
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .chatbot-window {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+    <nav class="glass-effect fixed w-full z-50 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-white">CSMU IntelliCampus</div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-white hover:text-blue-400 transition">About</a>
+                <a href="#" class="text-white hover:text-blue-400 transition">Features</a>
+                <a href="#" class="text-white hover:text-blue-400 transition">Admissions</a>
+                <a href="#" class="text-white hover:text-blue-400 transition">Support</a>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Login</button>
+            </div>
+            <button class="md:hidden text-white text-2xl"><i class="bi bi-list"></i></button>
+        </div>
+    </nav>
+
+    <section class="hero-section flex items-center justify-center">
+        <div class="text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to CSMU IntelliCampus</h1>
+            <p class="text-xl mb-8">Your AI-Powered Virtual Learning Hub!</p>
+            <div class="space-x-4">
+                <button class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition animate-float">
+                    Explore IntelliCampus
+                </button>
+                <button class="border-2 border-white text-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-500 transition">
+                    Chat with Our AI Assistant
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:transform hover:scale-105 transition">
+                <i class="bi bi-mortarboard text-4xl text-blue-500"></i>
+                <h3 class="text-xl font-bold mt-4 dark:text-white">Admissions Information</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-300">Learn about our admission process and requirements.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:transform hover:scale-105 transition">
+                <i class="bi bi-camera-video text-4xl text-blue-500"></i>
+                <h3 class="text-xl font-bold mt-4 dark:text-white">Virtual Campus Tour</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-300">Experience our campus from anywhere in the world.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:transform hover:scale-105 transition">
+                <i class="bi bi-person-circle text-4xl text-blue-500"></i>
+                <h3 class="text-xl font-bold mt-4 dark:text-white">Student Portal Access</h3>
+                <p class="mt-2 text-gray-600 dark:text-gray-300">Access your personalized learning dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-center mb-8 dark:text-white">Campus Location</h2>
+        <div class="rounded-xl overflow-hidden h-[400px]">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2219901290355!2d-74.00658368431997!3d40.71277937933185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a23e28c1191%3A0x49f75d3281df052a!2s150%20Greenwich%20St%2C%20New%20York%2C%20NY%2010007!5e0!3m2!1sen!2sus!4v1602512000000!5m2!1sen!2sus" 
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <div id="chatbot" class="fixed bottom-4 right-4 z-50">
+        <button @click="toggleChat" class="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition">
+            <i class="bi" :class="{'bi-chat-dots': !isChatOpen, 'bi-x-lg': isChatOpen}"></i>
+        </button>
+        <div v-if="isChatOpen" class="absolute bottom-16 right-0 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-2xl">
+            <div class="p-4 border-b dark:border-gray-700">
+                <h3 class="text-lg font-bold dark:text-white">AI Assistant</h3>
+            </div>
+            <div class="chatbot-window p-4">
+                <div v-for="message in messages" :key="message.id" 
+                     :class="['mb-4', message.type === 'user' ? 'text-right' : '']">
+                    <div :class="['inline-block p-3 rounded-lg', 
+                                message.type === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-white']">
+                        {{ message.text }}
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t dark:border-gray-700">
+                <div class="flex gap-2">
+                    <input v-model="userInput" @keyup.enter="sendMessage" 
+                           class="flex-1 px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                           placeholder="Type your message...">
+                    <button @click="sendMessage" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">CSMU IntelliCampus</h4>
+                    <p class="text-gray-400">Empowering education through AI innovation</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Admissions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-blue-400 transition"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>&copy; 2023 CSMU IntelliCampus. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    isChatOpen: false,
+                    userInput: '',
+                    messages: [
+                        { id: 1, type: 'bot', text: 'Hello! How can I help you today?' }
+                    ]
+                }
+            },
+            methods: {
+                toggleChat() {
+                    this.isChatOpen = !this.isChatOpen
+                },
+                sendMessage() {
+                    if (!this.userInput.trim()) return
+
+                    // Add user message
+                    this.messages.push({
+                        id: this.messages.length + 1,
+                        type: 'user',
+                        text: this.userInput
+                    })
+
+                    // Simulate bot response
+                    setTimeout(() => {
+                        this.messages.push({
+                            id: this.messages.length + 1,
+                            type: 'bot',
+                            text: 'Thank you for your message. Our AI assistant will help you shortly.'
+                        })
+                    }, 1000)
+
+                    this.userInput = ''
+                }
+            }
+        }).mount('#chatbot')
+
+        // Theme Toggle
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark')
+        }
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
